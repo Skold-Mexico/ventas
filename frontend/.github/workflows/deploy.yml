@@ -3,7 +3,7 @@ name: Deploy React App to GitHub Pages
 on:
   push:
     branches:
-      - main  # o cambia a tu rama principal si es diferente
+      - main
 
 jobs:
   deploy:
@@ -31,3 +31,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./frontend/build
+          publish_branch: gh-pages
