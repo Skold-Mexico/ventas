@@ -9,14 +9,6 @@ function App() {
         <p>
           Hola panza de bola
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          ola
-        </a>
       </header>
     </div>
   );
