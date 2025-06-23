@@ -36,3 +36,44 @@
     transform: rotate(360deg);
   }
 }
+
+/* lo que contiene la caja de texto */
+.contenedor {
+  padding: 100px;
+  max-width: 300px;
+  margin: 150px auto;
+  background-color: rgb(167, 150, 187);
+  border-radius: 25px;
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.1);
+  font-family: sans-serif;
+}
+
+input {
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+p {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+}

@@ -2,35 +2,66 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [empresa, setEmpresa] = useState(''); //constantes para la caja donde va el texto
-  const [enviar, setEnviar] = useState(false); //constante para el boton de enviar
+  // Estados para los inputs
+  const [correo, setCorreo] = useState('');
+  const [nombre, setNombre] = useState('');
+  const [enviar, setEnviar] = useState(false); // Estado para mostrar mensaje de éxito
 
-  const manejarClick = () => {
-    setEnviar(true); //cuando se hace click en el boton de enviar, se cambia el estado de enviar a true
-  }
+  // Función que se ejecuta al hacer clic en "Enviar correo"
+  const manejarClick = async () => {
+    try {
+      const respuesta = await fetch('http://localhost:8000/api/enviar-correo/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          correo: correo,
+          nombre: nombre,
+          vencimiento: '2025-07-31', // Puedes hacerlo dinámico si quieres
+        }),
+      });
 
-  //lo que se muestra en la pantalla
+      if (respuesta.ok) {
+        setEnviar(true); // Mostrar mensaje de confirmación
+      } else {
+        alert('Error al enviar el correo.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error al conectar con el servidor.');
+    }
+  };
+
   return (
-    <div style={{ padding: '20px'}}>
-      <input 
-      type="text"
-      placeholder="Escribe el nombre de la empresa"
-      value={empresa} //lo que aparece aqui es el nombre de la empresa pero debe aparecer que ya se envió el correo
-      onChange={(e) => setEmpresa(e.target.value)} //actualiza la empresa al escribir
+    <div className="contenedor">
+      <h2>Enviar correo automático</h2>
+
+      {/* Campo para nombre */}
+      <input
+        type="text"
+        placeholder="Nombre del usuario"
+        value={nombre}
+        onChange={(e) => setNombre(e.target.value)}
       />
 
-    //al hacer click de activa manejarClick
-    <button onClick={manejarClick} style={{marginLeft: '10px'}}>
-      Enviar correo
-    </button>
+      {/* Campo para correo */}
+      <input
+        type="email"
+        placeholder="Correo electrónico"
+        value={correo}
+        onChange={(e) => setCorreo(e.target.value)}
+      />
 
+      {/* Botón para enviar */}
+      <button onClick={manejarClick}>Enviar correo</button>
 
-    //si enviar es true se muestra el nombre
-    {enviar && (
-      <p style={{marginTop:'20px'}}>
-      Hola, se envió el correo a <strong>{empresa}</strong>
-      </p>
-    )}
+      {/* Mensaje después de enviar */}
+      {enviar && (
+        <p>
+          ✅ Correo enviado a <strong>{correo}</strong> con el nombre <strong>{nombre}</strong>.
+        </p>
+      )}
     </div>
   );
 }
